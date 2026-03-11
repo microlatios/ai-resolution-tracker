@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>AI Resolution Tracker (10 Weekends)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand">
+          <div class="brand__title">AI Resolution Tracker</div>
+          <div class="brand__subtitle">10 weekends → 10 tangible outcomes</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn--ghost" id="exportBtn" type="button">Export</button>
+          <label class="btn btn--ghost" for="importFile">
+            Import
+            <input id="importFile" type="file" accept="application/json" hidden />
+          </label>
+          <button class="btn btn--danger" id="resetBtn" type="button" title="Clears local data">
+            Reset
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero__left">
+          <h1 id="heroTitle" class="hero__title">Track your weekends.</h1>
+          <p class="hero__copy">
+            Check off each weekend only when it meets the “Done When” criteria. Everything autosaves in
+            this browser.
+          </p>
+
+          <div class="next" id="nextBox" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="hero__right">
+          <div class="card card--stats" aria-label="Progress summary">
+            <div class="stat">
+              <div class="stat__label">Completed</div>
+              <div class="stat__value"><span id="completedCount">0</span><span class="muted">/10</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Progress</div>
+              <div class="stat__value"><span id="progressPct">0</span><span class="muted">%</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Total hours</div>
+              <div class="stat__value"><span id="totalHours">0.0</span></div>
+            </div>
+
+            <div class="progress">
+              <div class="progress__track" aria-hidden="true">
+                <div class="progress__fill" id="progressFill"></div>
+              </div>
+              <div class="progress__meta">
+                <span class="muted">Tip: use Export for backups.</span>
+                <span class="pill" id="lastSavedPill">Not saved yet</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Weekends">
+        <div class="grid__header">
+          <h2 class="section-title">Weekends</h2>
+          <div class="muted small">Click a weekend to expand details.</div>
+        </div>
+
+        <div id="weekendList" class="weekend-list"></div>
+      </section>
+
+      <footer class="footer">
+        <div class="muted small">
+          Data lives in your browser via <code>localStorage</code>. No account required.
+        </div>
+      </footer>
+    </main>
+
+    <dialog id="exportDialog" class="dialog">
+      <form method="dialog" class="dialog__inner">
+        <div class="dialog__header">
+          <h3 class="dialog__title">Export / Backup</h3>
+          <button class="btn btn--ghost" value="close" aria-label="Close">Close</button>
+        </div>
+        <p class="muted">
+          Copy this JSON somewhere safe (or save it as a file). You can import it later.
+        </p>
+        <textarea id="exportText" class="dialog__textarea" spellcheck="false"></textarea>
+        <div class="dialog__actions">
+          <button class="btn" id="copyExportBtn" type="button">Copy to clipboard</button>
+          <button class="btn btn--ghost" id="downloadExportBtn" type="button">Download JSON</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
