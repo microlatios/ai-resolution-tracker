@@ -531,6 +531,15 @@ function main() {
   // Ensure initial save to set updatedAt and persist defaults
   state = saveState(state);
 
+  // PWA: register service worker for offline support.
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {
+        // Non-fatal: app works without offline caching.
+      });
+    });
+  }
+
   const getState = () => state;
   const setState = (s) => {
     state = s;
